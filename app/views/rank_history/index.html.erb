@@ -1,0 +1,21 @@
+<h1>Rounds</h1>
+ 
+<table>
+  <tr>
+    <th>Name</th>
+    <th>Date</th>
+    <th>Actions</th>
+  </tr>
+ 
+  <% @rounds.each do |round| %>
+    <tr>
+      <td><%= event.name %></td>
+      <td><%= link_to 'Show', event_round_path(@event, round) %></td>
+      <td><%= link_to 'Edit', edit_event_path(@event, round) %></td>
+    </tr>
+  <% end %>
+</table>
+
+<p>
+    <%= link_to 'New Event', new_event_round_path(@event) %>
+</p>

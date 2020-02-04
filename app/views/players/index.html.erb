@@ -1,0 +1,26 @@
+<h1>Players</h1>
+ 
+<table>
+  <tr>
+    <th>Name</th>
+    <th>TrueSkill</th>
+    <th>TrueSkill Deviation</th>
+    <th>Points</th>
+    <th>Actions</th>
+  </tr>
+ 
+  <% @players.each do |player| %>
+    <tr>
+      <td><%= player.name %></td>
+      <td><%= player.tskill %></td>
+      <td><%= player.tdeviation %></td>
+      <td><%= player.points %></td>
+      <td><%= link_to 'Show', event_player_path(@event, player) %></td>
+      <td><%= link_to 'Edit', edit_event_player_path(@event, player) %></td>
+    </tr>
+  <% end %>
+</table>
+
+<p>
+    <%= link_to 'New Player', new_event_player_path(@event) %>
+</p>

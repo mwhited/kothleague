@@ -1,0 +1,54 @@
+<%= form_with model: @round, url: [@event, @round], :html => { :onsubmit => 'return validateRoundForm();' }, local: true do |form| %>
+
+    <p id="jserrors"></p>
+    <% if @round.errors.any? %>
+        <div id="error_explanation">
+            <h2>
+                <%= pluralize(@round.errors.count, "error") %> prohibited
+                this round from being saved:
+            </h2>
+            <ul>
+                <% @round.errors.full_messages.each do |msg| %>
+                    <li><%= msg %></li>
+                <% end %>
+            </ul>
+        </div>
+    <% end %>
+    <p>
+        <%= form.label :name %><br>
+        <%= form.text_field :name %>
+    </p>
+
+    <p>
+        <%= form.label :datetime %><br>
+        <%= form.datetime_select :datetime %>
+    </p>
+
+    <p>
+        <%= form.label :Number_of_games %><br>
+        <%= form.number_field :numgames %>
+    </p>
+    
+    <p>
+        <%= form.check_box :started%> <%= form.label :started %>
+    </p>
+
+    <h2>Players</h2>
+<table>
+  <tr>
+    <th>Attending</th>
+    <th>Name</th>
+  </tr>
+ 
+  <% @event.players.order("name asc").each do |player| %>
+    <tr>
+      <td><%= check_box_tag :player_ids, player.id, form.object.players.include?(player), :name => 'round[player_ids][]' %>
+      <td><%= player.name %></td>
+    </tr>
+  <% end %>
+</table>
+
+    <p>
+        <%= form.submit %>
+    </p>
+<% end %>

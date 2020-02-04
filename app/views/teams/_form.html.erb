@@ -1,0 +1,36 @@
+<%= form_with model: @team, url: [@event, @round, @team], local: true do |form| %>
+
+    <p id="jserrors"></p>
+    <% if @team.errors.any? %>
+        <div id="error_explanation">
+            <h2>
+                <%= pluralize(@team.errors.count, "error") %> prohibited
+                this team from being saved:
+            </h2>
+            <ul>
+                <% @team.errors.full_messages.each do |msg| %>
+                    <li><%= msg %></li>
+                <% end %>
+            </ul>
+        </div>
+    <% end %>
+
+    <table>
+        <tr>
+          <td>
+            <table>
+              <% @event.players.each do |player| %>
+              <tr>
+                <td><%= check_box_tag :player_ids, player.id, @team.players.include?(player), :name => 'team[player_ids][]' %></td>
+                <td><%= player.name %></td>
+              </tr>
+              <% end %>
+            </table>
+          </td>
+         </tr>
+    </table>
+
+    <p>
+        <%= form.submit %>
+    </p>
+<% end %>

@@ -1,0 +1,52 @@
+<%= form_with model: @game, url: [@event, @round, @game], local: true do |form| %>
+
+    <p id="jserrors"></p>
+    <% if @game.errors.any? %>
+        <div id="error_explanation">
+            <h2>
+                <%= pluralize(@game.errors.count, "error") %> prohibited
+                this round from being saved:
+            </h2>
+            <ul>
+                <% @game.errors.full_messages.each do |msg| %>
+                    <li><%= msg %></li>
+                <% end %>
+            </ul>
+        </div>
+    <% end %>
+    
+    <p>
+        <%= form.check_box :complete%> <%= form.label :complete %>
+    </p>
+
+    <table>
+        <tr>
+          <td>Home<br><%= form.label :score %> <%= form.number_field :t1score %></td>
+          <td>Visitor<br><%= form.label :score %> <%= form.number_field :t2score %></td>
+        </tr>
+        <tr>
+          <td>
+            <table>
+              <% @game.team1.players.each do |player| %>
+              <tr>
+                <td><%= player.name %></td>
+              </tr>
+              <% end %>
+            </table>
+          </td>
+          <td>
+            <table>
+              <% @game.team2.players.each do |player|%>
+              <tr>
+                <td><%= player.name %></td>
+              </tr>
+              <% end %>
+            </table>
+          </td>
+         </tr>
+    </table>
+
+    <p>
+        <%= form.submit %>
+    </p>
+<% end %>

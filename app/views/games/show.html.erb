@@ -1,0 +1,32 @@
+<p>
+  <%= check_box("complete", @game.complete ,{checked: @game.complete, disabled: true}) %> complete
+</p>
+
+<table>
+  <tr>
+    <td><%= link_to 'Home', event_round_team_path(@event,@round,@game.team1) %> - <%= @game.t1score %></td>
+    <td><%= link_to 'Visitor', event_round_team_path(@event,@round,@game.team2) %> - <%= @game.t2score %></td>
+  </tr>
+  <tr>
+    <td>
+      <table>
+        <% @game.team1.players.each do |player| %>
+         <tr>
+          <td><%= player.name %></td>
+         </tr>
+         <% end %>
+      </table>
+    </td>
+    <td>
+      <table>
+        <% @game.team2.players.each do |player|%>
+        <tr>
+          <td><%= player.name %></td>
+        </tr>
+        <% end %>
+      </table>
+    </td>
+  </tr>
+</table>
+
+<%= link_to 'Back', event_round_path(@event,@round) %>

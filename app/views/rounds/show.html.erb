@@ -1,0 +1,75 @@
+<p>
+  <strong>Name:</strong>
+  <%= @round.name %>
+</p>
+ 
+<p>
+  <strong>Datetime:</strong>
+  <%= @round.datetime %>
+</p>
+
+<% if @round.started %>
+  <h2>Games</h2>
+  <% if @round.games.present? %>
+  <% @round.games.each do |game| %>
+  <table>
+    <tr>
+      <td>
+        <strong>Game</strong> <%= link_to 'Edit', edit_event_round_game_path(@event, @round,game) %><br>
+        <%= check_box("complete", game.complete, {checked: game.complete, disabled: true}) %> complete
+      </td>
+    </tr>
+    <tr>
+      <td><%= link_to 'Home', event_round_team_path(@event,@round,game.team1) %> - <%= game.t1score %></td>
+      <td><%= link_to 'Visitor', event_round_team_path(@event,@round,game.team2) %> - <%= game.t2score %></td>
+    </tr>
+    <tr>
+      <td>
+        <table>
+          <% game.team1.players.each do |player| %>
+          <tr>
+            <td><%= player.name %></td>
+            <td><%= player.tskill.round(5)%></td>
+            <td><%= player.points%></td>
+          </tr>
+          <% end %>
+        </table>
+      </td>
+      <td>
+        <table>
+          <% game.team2.players.each do |player|%>
+          <tr>
+            <td><%= player.name %></td>
+            <td><%= player.tskill.round(5)%></td>
+            <td><%= player.points%></td>
+          </tr>
+          <% end %>
+        </table>
+      </td>
+     </tr>
+    <% end %>
+    <% end %>
+  </table>
+  <br>
+<% end %>
+
+<% unless @round.started %>
+<div id="players_div">
+<h2>Players</h2>
+<table>
+  <tr>
+    <th>Attending</th>
+    <th>Name</th>
+  </tr>
+ 
+  <% @event.players.order("name asc").each do |player| %>
+    <tr>
+      <td><%= check_box_tag :player_ids, player.id, @round.players.include?(player), :name => 'round[player_ids][]', :disabled => true %>
+      <td><%= player.name %></td>
+    </tr>
+  <% end %>
+</table>
+</div>
+<% end %>
+
+<%= link_to 'Back', event_path(@event) %>

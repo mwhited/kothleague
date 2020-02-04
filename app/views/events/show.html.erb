@@ -1,0 +1,54 @@
+<p>
+  <strong>Name:</strong>
+  <%= @event.name %>
+</p>
+ 
+<p>
+  <strong>Description:</strong>
+  <%= @event.description %>
+</p>
+
+<h2>Rounds</h2>
+<table>
+  <tr>
+    <th>Name</th>
+    <th>Datetime</th>
+  </tr>
+ 
+  <% @event.rounds.order("datetime desc").each do |round| %>
+    <tr>
+      <td><%= round.name %></td>
+      <td><%= round.datetime %></td>
+      <td><%= link_to 'Show', event_round_path(@event, round) %></td>
+      <td><%= link_to 'Edit', edit_event_round_path(@event, round) %></td>
+    </tr>
+  <% end %>
+</table>    
+
+<%= link_to 'Add Round', new_event_round_path(@event) %>
+
+<h2>Players</h2>
+<table>
+  <tr>
+    <th>Name</th>
+    <th>TrueSkill</th>
+    <th>TrueSkill Deviation</th>
+    <th>Points</th>
+    <th>Actions</th>
+  </tr>
+ 
+  <% @event.players.order("tskill desc").each do |player| %>
+    <tr>
+      <td><%= player.name %></td>
+      <td><%= player.tskill.round(5) %></td>
+      <td><%= player.tdeviation.round(5) %></td>
+      <td><%= player.points %></td>
+      <td><%= link_to 'Show', event_player_path(@event, player) %></td>
+      <td><%= link_to 'Edit', edit_event_player_path(@event, player) %></td>
+    </tr>
+  <% end %>
+</table>    
+
+<%= link_to 'Add Player', new_event_player_path(@event) %>
+
+<%= link_to 'Back', events_path %>

@@ -1,0 +1,20 @@
+<p>
+  <strong>Team - <%= @team.id %></strong>
+</p>
+
+<table>
+  <tr>
+    <td>
+      <table>
+        <% @team.players.each do |player| %>
+         <tr>
+          <td><%= player.name %></td>
+         </tr>
+         <% end %>
+      </table>
+    </td>
+  </tr>
+</table>
+
+<%= link_to 'Edit', edit_event_round_team_path(@event,@round,@team) %>
+<%= link_to 'Back', event_round_path(@event,@round) %>

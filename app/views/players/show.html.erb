@@ -1,0 +1,38 @@
+<p>
+  <strong>Name:</strong>
+  <%= @player.name %>
+</p>
+ 
+<p>
+  <strong>TrueSkill:</strong>
+  <%= @player.tskill.round(5) %>
+</p>
+
+<p>
+  <strong>TrueSkill Deviation:</strong>
+  <%= @player.tdeviation.round(5) %>
+</p>
+
+<p>
+  <strong>Points:</strong>
+  <%= @player.points%>
+</p>
+
+<strong>Rank History</strong>
+<table>
+  <tr>
+    <th>Game</th>
+    <th>TrueSkill</th>
+    <th>TrueSkill Deviation</th>
+    <th>Points</th>
+  </tr>
+  <% @player.rank_histories.includes(game: :round).order("rounds.datetime desc").each do |rankhistory| %>
+    <tr>
+      <td><%= rankhistory.game.round.datetime %></td>
+      <td><%= rankhistory.tskill %></td>
+      <td><%= rankhistory.tdeviation %></td>
+      <td><%= rankhistory.points %></td>
+    </tr>
+  <% end %>
+
+<%= link_to 'Back', event_path(@event) %>

@@ -1,0 +1,21 @@
+<h1>Games</h1>
+ 
+<table>
+  <tr>
+    <th>Name</th>
+    <th>Date</th>
+    <th>Actions</th>
+  </tr>
+ 
+  <% @games.each do |game| %>
+    <tr>
+      <td><%= game.id %></td>
+      <td><%= link_to 'Show', event_event_round_game_path(@round,@game) %></td>
+      <td><%= link_to 'Edit', edit_event_round_game_path(@round, @game) %></td>
+    </tr>
+  <% end %>
+</table>
+
+<p>
+    <%= link_to 'New Event', new_event_round_game_path(@round,@game) %>
+</p>
