@@ -29,8 +29,8 @@
   <% @player.rank_histories.includes(game: :round).order("rounds.datetime desc").each do |rankhistory| %>
     <tr>
       <td><%= rankhistory.game.round.datetime %></td>
-      <td><%= rankhistory.tskill %></td>
-      <td><%= rankhistory.tdeviation %></td>
+      <td><%= rankhistory.tskill.round(5) %></td>
+      <td><%= rankhistory.tdeviation.round(5) %></td>
       <td><%= rankhistory.points %></td>
     </tr>
   <% end %>
