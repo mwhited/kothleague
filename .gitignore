@@ -30,3 +30,6 @@
 yarn-debug.log*
 .yarn-integrity
 config/environments/local_env.yml
+
+# Ignore db config
+/config/database.yml
