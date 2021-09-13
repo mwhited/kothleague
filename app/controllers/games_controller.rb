@@ -32,8 +32,10 @@ class GamesController < ApplicationController
     def update
         @game = Game.find(params[:id])
 
+        old_complete = @game.complete
+
         if @game.update(game_params)
-            if @game.complete
+            if @game.complete && !old_complete
                 update_ratings()
             end
             redirect_to event_round_path(@event,@round)
